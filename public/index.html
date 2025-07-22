@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Bsaketball project</title>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+  <!-- //email validation -->
+  <link rel="stylesheet" href="style/templete.css">
+  <style>
+
+    #mainbtn{
+    float: right;
+}
+    .btn:hover {
+      background-color: rgb(242, 243, 249);
+      color: rgb(56, 3, 154);
+    }
+  </style>
+  <style>
+    .ok {
+      background-color: lightgreen;
+      color: green;
+      padding: 1px;
+      border-radius: 2px;
+    }
+
+    .not-ok {
+      background-color: rgb(240, 10, 10);
+      color: rgb(7, 7, 7);
+      padding: 1px;
+      border-radius: 2px;
+    }
+
+    .not-okpic {
+      background-image: url(pics/notok.png);
+      background-size: contain;
+      width: 20px;
+      height: 20px;
+    }
+
+    .ok-pic {
+      background-image: url(pics/tick.png);
+      background-size: contain;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+    <style>
+        #logo {
+    width: 96px;
+    height: 94px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 20px;
+    background-image: url("pics/my.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#outer-div {
+    width: 100%; /* Better for responsiveness */
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+    padding: 20px; /* instead of fixed height */
+    height: auto; /* <--- FIX */
+}
+
+#img-div {
+    width: 500px;
+    /* height: 300px; */ /* Remove fixed height */
+    aspect-ratio: 5/3; /* Optional for consistent shape */
+    margin: auto;
+    background-color: whitesmoke;
+    background-image: url("pics/my.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#text-div {
+    width: 500px;
+    /* height: 300px; */ /* Remove fixed height */
+    background-color: rgb(248, 246, 245);
+    margin: auto;
+    font-weight: 200;
+    font-style: italic;
+    display: inline-block;
+    margin-top: 5px;
+}
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgb(230, 197, 137);
+  transition: all 0.3s ease-in-out;
+}
+.card {
+  transition: all 0.3s ease-in-out;
+}
+
+        
+    </style>
+
+  <script>
+    $(document).ready(function () {
+      $("#txtEmail").keyup(function () {
+        let emailid = $("#txtEmail").val();
+        let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;  //regex 
+
+        if (emailid == "") {
+          $("#errMsgE").html("Empty").addClass("not-ok").removeClass("ok");
+          $("#errPicE").addClass("not-okpic").removeClass("ok-pic");
+        }
+        else if (regex.test(emailid) == false) {
+          $("#errMsgE").html("InvalidEmail").addClass("not-ok").removeClass("ok");
+          $("#errPicE").addClass("not-okpic").removeClass("ok-pic");
+        }
+        else {
+          $("#errMsgE").html("validEmail").addClass("ok").removeClass("not-ok");
+          $("#errPicE").addClass("ok-pic").removeClass("not-okpic");
+        }
+
+      })
+      $("#txtPwd").keyup(function () {
+
+
+      $("#eye").click(function () {
+        let txt = $("#txtPwd").prop("type");
+        if (txt == "password") {
+          $("#txtPwd").prop("type", "text");//type changed
+          $("#eye").removeClass("fa-eye").addClass("fa-eye-slash");
+        }
+        else {
+          $("#txtPwd").prop("type", "password");
+          $("#eye").removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+
+
+      })
+    })
+       })
+
+                 //Validations for LOgin
+       $(document).ready(function ()
+        
+     {
+  
+      
+      $("#eye2").click(function () {
+        let txt = $("#txtPwd2").prop("type");
+        if (txt == "password") {
+          $("#txtPwd2").prop("type", "text");//type changed
+          $("#eye2").removeClass("fa-eye").addClass("fa-eye-slash");
+        }
+        else {
+          $("#txtPwd2").prop("type", "password");
+          $("#eye2").removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+   
+
+      
+    })
+      })
+        
+
+   
+  </script>
+
+
+
+  <script>
+    $(document).ready(function () {
+      $("#btnSubmit").click(function () {
+
+
+        let obj = {
+          type: "get",
+          url: "/signup-one",
+          data: {
+            txtEmail: $("#txtEmail").val(),
+            txtPwd: $("#txtPwd").val(),
+            userType: $("#userType").val()
+          }
+        }
+
+        $.ajax(obj).then(
+          function (response) {
+            alert(response);
+          }
+        ).fail(function (err) {
+          alert("Error: " + err.message);
+        })
+      })
+  
+
+    //LOGIN AJAX
+
+  
+      $("#btnSubmit2").click(function () {
+       
+      alert();
+        let obj = {
+          type: "get",
+          url: "/do-login",
+          data: {
+            txtEmail2: $("#txtEmail2").val(),
+            txtPwd2: $("#txtPwd2").val(),
+
+          }
+        }
+                                      //validation for log in ,log out
+        $.ajax(obj).then(
+          function (response) {
+            alert(response)
+             if (response == "Blocked") {
+               alert("Sorry!!Ur Id is Blocked");
+             }
+
+             else if (response == "Invalid") {
+               alert("Invalid Email or Password");
+             }
+             else
+              if (response == "player") {
+                localStorage.setItem("activeUser", $("#txtEmail2").val())
+                location.href = "player-details.html"
+              }
+
+              else if (response == "organizer") {
+                localStorage.setItem("activeUser", $("#txtEmail2").val())
+                location.href = "org-details.html";
+              }
+              else if (response == "admin") {
+                localStorage.setItem("activeUser", $("#txtEmail2").val())
+                location.href = "user-admin-details.html";
+              }
+          }).fail(function (err) {
+            alert("Error: " + err.message);
+          })
+      })
+    })
+
+
+  </script>
+</head>
+
+<body  >
+   <div>
+   <nav class="navbar navbar-expand-lg bg-light-green">
+  <div class="container-fluid">
+     <a class="navbar-brand " href="#" style="font-style: italic  ;color: rgb(183, 148, 57);">
+                <img src="pics/zlogo.jpg" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                www.Zivora.com
+            </a>
+    <!-- <a class="navbar-brand text-light" href="#">Navbar</a> -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon bg-light"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+        <u>  <a class="nav-link active text-light" aria-current="page" href="#"   style="font-weight: 500; text-decoration: underline; ">HOME </a></u>
+
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link active text-light" aria-current="page"  style="font-weight: 500; text-decoration: underline;" href="#reach">REACH US</a>
+        </li>
+
+           <li class="nav-item text-center">
+                 
+
+                    </li>
+                    <li class="nav-item text-center">
+                         
+
+      </ul>
+
+      <div class="navbar-nav ms-auto">
+        <button type="button " class="btn btn-light-orange"  data-bs-toggle="modal" data-bs-target="#signupModal " id="btnSignup" > Signup</button>
+         <button type="button" class="btn btn-light-orange mx-3" data-bs-toggle="modal" data-bs-target="#LoginModal"  >Login</button>
+              
+      </div>
+    </div>
+  </div>
+</nav>
+    <!-- <nav class="navbar navbar-expand-lg bg-light-green">
+        <div class="container-fluid ">
+            <a class="navbar-brand text-white" href="#">
+                <img src="pics/medal.jpg" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                www.realservices.com
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" ml-3>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+
+
+                    <li class="nav-item text-center">
+                  <button type="button " class="btn btn-light-orange  " data-bs-toggle="modal" data-bs-target="#signupModal " id="btnSignup" > Signup</button>
+
+                    </li>
+                    <li class="nav-item text-center">
+                          <button type="button" class="btn btn-light-orange" data-bs-toggle="modal" data-bs-target="#LoginModal"  >Login</button>
+
+                    </li>
+                    <li class="nav-item text-center">
+                        <button type="button" class="btn btn-light-orange" data-bs-toggle="modal" 
+                            style="float:right; margin-left:10px;">Reach Us</button>
+
+
+                </ul>
+
+            </div>
+        </div>
+    </nav> -->
+    <center>
+       <div class="container mt-3"></div>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+               
+                <div class="carousel-item active">
+                    <img src="pics/ban.jpg" class="d-block w-100" alt="..." height="300px;">
+                </div>
+                 <div class="carousel-item active">
+                    <img src="pics/banner2.jpg" class="d-block w-100" alt="..." height="300px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="pics/banner.jpg" class="d-block w-100" alt="..." height="300px;">
+                </div>
+              
+            </div>
+        </div>
+    </center>
+    <div class="col-md-12 bg-dark text-white py-2">
+  <center>
+    <h5>Our Services</h5>
+  </center>
+</div>
+
+    </div>
+    <div class="container mt-2">
+        <div class="row" style="justify-content: space-evenly;">
+                    <div class="card" style="width: 18rem; ">
+  <img src="pics/medals.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Exciting Tournaments</h5>
+    <p class="card-text"> Join our championship tournaments and showcase your talent on the biggest stage. Every match is an opportunity to prove yourself!</p>
+   
+  </div>
+                   </div>
+           <div class="card" style="width: 18rem;">
+  <img src="pics/tournamentsweb.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Dedicated Players</h5>
+    <p class="card-text"> Our players bring passion, skill, and teamwork to every match. They inspire others through their dedication and sportsmanship, proving that true champions are built on hard work.</p>
+  
+  </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+  <img src="pics/organizer.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Our Organizers</h5>
+    <p class="card-text">  Behind every successful tournament are our expert organizers. They plan, coordinate, and ensure everything runs smoothly, making every event memorable..</p>
+  
+  </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+  <img src="pics/gameweb2.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Our Sports</h5>
+    <p class="card-text">  We proudly support and promote diverse sports, encouraging healthy competition, skill development, and a strong sense of teamwork in every tournament we organize.</p>
+
+
+  </div>
+</div>
+            </div>
+          
+        </div>
+        <div class="row">
+  <div class="col-md-12 bg-dark text-white py-2" style="padding:14px 0px 14px 0px;">
+    <center>
+      <h5> Our Mission</h5>
+    </center>
+  </div>
+
+  <div class="col-md-12">
+    <div id="outer-div" class="text-center">
+      <div id="img-div">
+        <img src="pics/india.webp" class="card-img-top" alt="...">
+      </div>
+      <div id="text-div">
+        <p style="color:rgb(9, 9, 9); text-align:center; margin-bottom: 0;">
+          Our mission is to nurture talent, foster sportsmanship, and build a strong sporting culture that not only inspires individuals but also brings pride to our nation. We strive to provide every athlete with equal opportunities to develop their skills, grow in character, and contribute to the success of their teams and communities. Through well-organized tournaments, transparent management, and inclusive participation, we aim to unite people, promote healthy lifestyles, and showcase the spirit of excellence that reflects the true strength of our country. By empowering players and organizers alike, we work towards creating champions who excel on the field and serve as role models off the field — representing our nation with integrity, dedication, and pride.
+        </p>
+      </div>
+    </div>
+  </div>
+            <div class="col-md-12  bg-dark text-white py-2" style="padding:14px 0px 14px 0px;">
+        <center>
+            <h5>Meet The Devolopers</h5>
+        </center> 
+    </div> 
+
+  <div class="col-md-6" style=" float: right;">
+    <div class="card mb-3 mx-auto" style="max-width: 540px; margin-top: 0;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="pics/sir.jpg" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Our Mentor </h5>
+            <p class="card-text">Mr. Rajesh Bansal, founder of Bangalore Computer Center, Bathinda, has been dedicatedly serving and mentoring students in the field of computers since 2001..</p>
+                <p class="card-text">(Author Of Real Java)</p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-3 mx-auto" style="max-width: 540px; margin-top: 0;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="pics/janvi2.jpg" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Devoloped By </h5>
+            <p class="card-text">I’m Rajni Goyal, M.Sc. IT student, and I have personally developed this project to improve my skills and bring my ideas to life.</p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="container mt-2">
+ <div class="col-md-12  bg-dark text-white py-2" style="padding:14px 0px 14px 0px;">
+        <center>
+            <h5>Reach Us</h5>
+        </center> 
+    </div> 
+<div class="container">
+  <div class="row justify-content-center">
+    <!-- Google Maps -->
+    <div class="col-md-5 mb-3 d-flex" id="reach">
+      <div class="card h-100 w-100">
+        <div class="card-body">
+          <h5 class="card-title bg-dark text-white py-2 text-center">Google Maps</h5>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35983.2938399461!2d74.93636400966231!3d30.224689173098525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391732c8163f6467%3A0x8e6bc6fd6fbd2fc7!2sGGS%20Nagar%2C%20Baba%20Farid%20Nagar%2C%20Bathinda%2C%20Punjab%20151001!5e0!3m2!1sen!2sin!4v1753034690274!5m2!1sen!2sin"
+            width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="col-md-5 mb-3 d-flex">
+      <div class="card h-100 w-100" style="background-color:  rgb(248, 246, 245) ; font-weight: 400;">
+        <div class="card-body text-center">
+          <h5 class="card-title bg-dark text-white py-2">My Contact Information</h5>
+          <p class="card-text" >
+            <strong>Address:</strong> 
+            <p>
+            Guru Gobind Singh Nagar 
+            </p>
+            <p>
+             Street No . 11/2, Bathinda, Punjab
+             </p>
+             <p>
+             Email ID: . goyaljanvi77196@gmail.com
+             </p>
+          </p>
+          <p class="card-text">
+            <strong>Linkdin Profile:</strong>
+            <a href="https://www.linkedin.com/in/rajni-goyal-2b271a331" target="_blank">
+              www.linkedin.com/in/rajni-goyal-2b271a331
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+<div class="card text-center  bg-dark text-white py-2">
+  <div class="card-header">
+  Driven by Passion
+  </div>
+  <div class="card-body" >
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">  &copy; 2025 | Made with ❤️ for the love of sports..</p>
+    <a href="#" class="btn btn-light">Contact Us</a>
+  </div>
+  <div class="card-footer text-body-secondary">
+    2 days ago
+  </div>
+</div>
+    
+  
+        
+    
+     
+
+
+   
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+<!-- 
+           finish bootstrap -->
+  <!-- <div  id="outer-div"> -->
+
+  <center>
+    <!--  for link data bs toggle will use-->
+    <!-- <button type="button " class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#signupModal " id="btnSignup" > Signup</button>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal"  >Login</button> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+    <a href="/org-details" class="btn btn-primary"> Org-dash
+    </a> -->
+
+               <!-- commented botton -->
+ <!-- <a href="/org-details" class="btn btn-primary">
+      Orgdash
+    </a>
+    <a href="/player-details" class="btn btn-primary">
+      player-dash
+    </a>
+    <a href="/user-admin-details" class="btn btn-primary">
+      admin-console
+    </a> -->
+
+              <!-- finish -->
+     
+  </center>
+  <!-- 
+     <a href="dash-organizers.html" target="blank">
+          <button type="button"   id="orgDash"  >Org-dash</button>
+          </a>
+           -->
+
+
+          <!-- Signup  Model -->
+
+  <div class="modal" tabindex="-1" id="signupModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Signup Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="txtEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="txtEmail" name="txtEmail">
+            <div class="d-flex mt-1">
+              <div id="errPicE" class="me-2"></div>
+              <div id="errMsgE"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="txtPwd" class="form-label">Password</label>
+            <div class="d-flex border p-1">
+              <input type="password" class="form-control border-0" id="txtPwd">
+              <i class="fa-solid fa-eye" id="eye"   ></i>
+            </div>
+            <div class="d-flex mt-1">
+              <div id="errPicE2" class="me-2"></div>
+              <div id="errMsgE2"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="userType" class="form-label">User Type</label>
+            <select class="form-select" id="userType" name="userType">
+              <option selected>SELECT</option>
+              <option value="player">Player</option>
+              <option value="organizer">Organizer</option>
+            </select>
+          </div>
+
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+
+          <button type="button" class="btn btn-dark" id="btnSubmit">Signup</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- LOGIN MODEL -->
+
+  
+  <div class="modal" tabindex="-1" id="LoginModal"   > 
+  <div class="modal-dialog"   >
+    <div class="modal-content"  >
+      <div class="modal-header  bg-dark  text-white"   >
+        <h5 class="modal-title"   > Login Modal </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+    <form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="txtEmail2" name="txtEmail2" aria-describedby="emailHelp">
+      <div class="d-flex mt-1">
+              <div id="errPicE2" class="me-2"></div>
+              <div id="errMsgE2"></div>
+            </div>
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+
+  <div class="mb-3">
+  <label for="txtPwd2" class="form-label">Password</label>
+  <div class="d-flex border p-1">
+    <input type="password" class="form-control border-0" id="txtPwd2" name="txtPwd2">
+    <i class="fa-solid fa-eye" id="eye2"></i>
+  </div>
+  <div class="d-flex mt-1">
+    <div id="errPicPwd2" class="me-2"></div>
+    <div id="errMsgPwd2"></div>
+  </div>
+</div>
+
+
+
+  <input type="button" class="btn btn-dark"  value="Login" id="btnSubmit2" ></button>
+</form>
+
+    </div>
+  </div>
+</div>
+ 
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

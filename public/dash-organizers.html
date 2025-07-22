@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+     </head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+     <script>
+        function showPrev(fileRef,prevRef)
+         {
+                         const [file] = fileRef.files
+                            if (file) {
+                                prevRef.src = URL.createObjectURL(file)
+                            }
+        }
+
+    </script>
+                  <!-- /for ajax script -->
+           <script >
+
+      $(document).ready(function () {
+         
+    $("#btnFetchWithAJAX").click(function () {
+   
+    
+        let obj = {
+            type: "get",
+            url: "/get-one",
+            data: {
+                txtEmaildas: $("#txtEmaildas").val()
+            }
+        };
+
+        $.ajax(obj).then(
+            function (responseJsonAry) {
+                // Extract data properly
+                let emailid = responseJsonAry[0].emailid;
+                let orgname = responseJsonAry[0].orgname;
+                let regnumber = responseJsonAry[0].regnumber;
+                let adress = responseJsonAry[0].adress;
+                let city = responseJsonAry[0].city;
+                let sports = responseJsonAry[0].sports;
+                let website = responseJsonAry[0].website;
+                let insta = responseJsonAry[0].insta;
+                let head = responseJsonAry[0].head;
+                let contact = responseJsonAry[0].contact;
+                let pic = responseJsonAry[0].pic;
+
+                // Populate form fields
+                $("#txtEmaildas").val(emailid);
+                $("#txtOrg").val(orgname);
+                $("#txtNum").val(regnumber);
+                $("#txtAdress").val(adress);
+                $("#txtCity").val(city);
+                $("#txtDeals").val(sports);
+                $("#txtWeb").val(website);
+                $("#txtInsta").val(insta);
+                $("#txtHead").val(head);
+                $("#txtCont").val(contact);
+
+                // Update preview image and hidden field
+                $("#prev").prop("src", pic);
+                $("#hdn").val(pic);
+
+            }
+        ).fail(function (err) {
+            alert("Error: " + err.responseText);
+        });
+    });
+});
+
+           </script>
+           <script>
+             //For login logout
+    function showUser()
+    {
+      let activeUser=localStorage.getItem("activeUser");
+      document.getElementById("txtEmaildas").value=activeUser;
+    }
+  </script>
+ 
+  <body  onload="showUser()">
+    <div class="container row">
+    <div class="col-md-12">
+      <div
+        class="col-md-12 bg-dark text-white"
+        style="padding:14px 0px 14px 0px;"
+      >
+        www.Zivora.com
+      </div>
+    </div>
+
+     <form action="/server-signup-safe" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="hdn" name="hdn">
+    <div class="container mt-4 row">
+      <div>
+        <div class="col-md-8 offset-md-2 bg-dark text-white">
+          <center><h2> Organizer Profile Page</h2></center>
+        </div>
+      </div>
+
+      <div class="col-md-6 offset-md-2" >
+        
+          <div class="row">
+  <!-- Email Field -->
+  <div class="col-md-9">
+    <label for="txtEmaildas" class="form-label">Email</label>
+    <input type="email" class="form-control" id="txtEmaildas" name="txtEmaildas" required/>
+  </div>
+
+  <!-- Search Button -->
+  <div class="col-md-3 text-end">
+    <label class="form-label d-block">&nbsp;</label>
+    <button type="button" id="btnFetchWithAJAX" class="btn btn-dark" >
+      Search
+    </button>
+  </div>
+</div>
+
+         <div class="row">
+  <div class="col-8">
+    <label for="txtOrg" class="form-label">Organization Name</label>
+    <input type="text" class="form-control" id="txtOrg" name="txtOrg" required/>
+  </div>
+
+  <div class="col-4">
+    <label for="txtNum" class="form-label">Registration Number</label>
+    <input type="text" class="form-control" id="txtNum" name="txtNum" required/>
+  </div>
+
+
+          <div class="col-8">
+            <label for="txtAdress" class="form-label">Address</label>
+            <input type="text" class="form-control" id="txtAdress" name="txtAdress"  required />
+          </div>
+
+          <div class="col-4">
+            <label for="txtCity" class="form-label">City</label>
+            <input type="text" class="form-control" id="txtCity" name="txtCity" required/>
+          </div>
+
+          <div class="col-md-12">
+            <label for="txtDeals" class="form-label">Deals in Sports</label>
+            <input type="text" class="form-control" id="txtDeals" name="txtDeals" required />
+          </div>
+
+          <div class="col-md-6">
+            <label for="txtWeb" class="form-label">Website</label>
+            <input type="text" class="form-control" id="txtWeb" name="txtWeb" required/>
+          </div>
+
+          <div class="col-md-6">
+            <label for="txtInsta" class="form-label">Instagram</label>
+            <input type="text" class="form-control" id="txtInsta" name="txtInsta" required/>
+          </div>
+
+          <div class="col-md-6">
+            <label for="txtHead" class="form-label">Organizer Head</label>
+            <input type="text" class="form-control" id="txtHead" name="txtHead" readonly/>
+          </div>
+
+          <div class="col-md-6">
+            <label for="txtCont" class="form-label">Contact Number</label>
+            <input type="text" class="form-control" id="txtCont" name="txtCont" readonly />
+          </div>
+
+          <div class="col-md-12">
+            <label for="txtPic" class="form-label">Certificate Pic</label>
+            <input type="file"  name="profilePic"  onchange="showPrev(profilePic,prev)">
+            <br />
+            <img src="pics/frame.jpg" width="100" height="100" id="prev" alt="" />
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck" />
+              <label class="form-check-label" for="gridCheck">
+                Check me out
+              </label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button type="submit" class="btn btn-dark" >Sign to Server</button>
+                <input type="submit" value="Modify"  class="btn btn-dark" formaction="/update-user">
+          </div>
+     
+      </div>
+    </div>
+   </form>
+   </div>
+    <nav
+      class="navbar bg-body-primary bg-dark mt-5"
+      style="transform: translateY(50px);"
+    >
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Thank You!</span>
+      </div>
+    </nav>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    ></script>
+  </body>
+  
+</html>

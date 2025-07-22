@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>Events</title>
+
+
+     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+      <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+   
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"></script>
+
+ <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+ 
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+        <!-- Events submit with Ajax -->
+
+           <script>
+
+         $(document).ready(function(){
+    $("#btnEvents").click(function() {
+       
+
+        let obj = {
+            type: "get",
+            url: "/events-one",
+            data: {
+                txtE: $("#txtE").val(),
+                txtEvent:  $("#txtEvent").val(),
+                txtD: $("#txtD").val(),
+                txtTime: $("#txtTime").val(),
+                txtL: $("#txtL").val(),
+                txtCity: $("#txtCity").val(),
+                txtSports: $("#txtSports").val(),
+                txtMin: $("#txtMin").val(),
+                txtMax: $("#txtMax").val(),
+                txtLast: $("#txtLast").val(),
+                txtFees: $("#txtFees").val(),
+                txtPrize: $("#txtPrize").val(),
+                  txtCont: $("#txtCont").val(),
+            }
+        }
+
+        $.ajax(obj).then(
+            function(response) {
+                alert(response);
+            }
+        ).fail(function(err) {
+            alert("Error: " + err.message);
+        })
+    })
+})
+
+           </script>
+                <script>
+        function showUser()
+        {
+          let activeUser=localStorage.getItem("activeUser");
+          document.getElementById("txtE").value=activeUser;
+        }
+
+
+           </script>
+</head>
+    <body onload="showUser()">
+  <div class="row ">
+    <div class="col-md-12  bg-dark text-white" style="padding:14px 0px 14px 0px;">
+      www.zivora.com
+    </div>
+  </div>
+
+  
+  <div class="container mt-4">
+
+    <div class="row ">
+      <div class="col-md-8 offset-md-2 bg-dark text-white">
+        <center>
+          <h2>Tournaments Scheule Table</h2>
+        </center>
+      </div>
+    </div>
+
+    <div class="col-md-8 offset-md-2">
+        <div class="col-md-12">
+          <label for="inputEmail4" class="form-label">Email Id</label>
+          <input type="email" class="form-control" id="txtE" name="txtE" value=world@gmail.com />
+        
+        </div>
+
+
+        <div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4">
+      <label for="txtEvent" class="form-label">Event Title</label>
+      <input type="text" class="form-control" id="txtEvent" name="txtEvent" />
+    </div>
+    <div class="col-md-4">
+      <label for="txtD" class="form-label">Date</label>
+      <input type="date" class="form-control" id="txtD" name="txtD" />
+    </div>
+  
+
+        <div class="col-md-4">
+          <label for="inputAddress" class="form-label">Time</label>
+          <input type="Time" class="form-control" id="txtTime" name="txtTime" placeholder="1234 Main St"  />
+        </div>
+        
+        <div class="col-md-6">
+          <label for="inputAddr" class="form-label">Location</label>
+          <input type="text" class="form-control" id="txtL" name="txtL" placeholder="Apartment, studio, or floor"
+             />
+        </div>
+        <div class="col-md-6">
+          <label for="inputCity" class="form-label">City</label>
+          <input type="text" class="form-control" id="txtCity" name="txtCity"  />
+        </div>
+
+        <div class="col-md-4">
+    <label for="inputState" class="form-label">Sports Catagory</label>
+    <select  class="form-select"   id="txtSports" name="txtSports">
+      <option selected>Choose...</option>
+      <option>Basketball</option>
+       <option>Volleyball</option>
+       <option>Basketball</option>
+       <option>kabaddi</option>
+      <option>Football</option>
+     <option>Cricket</option>
+     <option>Tennis</option>
+     <option>Badminton</option>
+     <option>Table Tennis</option>
+     <option>Hockey</option>
+     <option>Track & Field</option>
+     <option>Swimming</option>
+     <option>Chess</option>
+     <option>Wrestling</option>
+    </select>
+  </div>
+
+        <div class="col-md-4">
+          <label for="inputDeals" class="form-label">Minimum Age</label>
+          <input type="number" class="form-control" id="txtMin" name="txtMin"  />
+        </div>
+        <div class="col-md-4">
+          <label for="inputWebsite" class="form-label">Minimum Age</label>
+          <input type="number" class="form-control" id="txtMax" name="txtMax" />
+        </div>
+
+        <div class="col-md-4">
+          <label for="inputinsta" class="form-label">Last Date of Registration</label>
+          <input type="date" class="form-control" id="txtLast" name="txtLast"  />
+        </div>
+
+        <div class="col-md-4">
+          <label for="inputOrgHead" class="form-label">Fees</label>
+          <input type="text" class="form-control" id="txtFees" name="txtFees" />
+        </div>
+
+        <div class="col-md-4">
+          <label for="inputContact" class="form-label">Prize/Money</label>
+          <input type="text" class="form-control" id="txtPrize" name="txtPrize"  />
+        </div>
+                
+        </div>
+        </div>
+        <div class="col-md-12">
+          <label for="inputOtherInfo" class="form-label">Contact Information</label>
+          <input type="text" class="form-control" id="txtCont" name="txtCont" />
+        </div>
+        <center>
+
+          <div class="col-md-6">
+            <input type="button" class="btn btn-dark" value="Publish Event" id="btnEvents" name="btnEvents">
+          </div>
+        
+        </center>
+      </form>
+    </div>
+  
+  </div>
+
+
+  <nav class="navbar bg-body-primary bg-dark mt-5" style="transform: translateY(50px);">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Thanks</span>
+    </div>
+  </nav>
+
+
+</body>

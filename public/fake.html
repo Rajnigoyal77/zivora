@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Bsaketball project</title>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+  <!-- //email validation -->
+
+  <style>
+    .btn:hover {
+      background-color: rgb(242, 243, 249);
+      color: rgb(56, 3, 154);
+    }
+  </style>
+  <style>
+    .ok {
+      background-color: lightgreen;
+      color: green;
+      padding: 1px;
+      border-radius: 2px;
+    }
+
+    .not-ok {
+      background-color: rgb(240, 10, 10);
+      color: rgb(7, 7, 7);
+      padding: 1px;
+      border-radius: 2px;
+    }
+
+    .not-okpic {
+      background-image: url(pics/notok.png);
+      background-size: contain;
+      width: 20px;
+      height: 20px;
+    }
+
+    .ok-pic {
+      background-image: url(pics/tick.png);
+      background-size: contain;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+
+  <script>
+    $(document).ready(function () {
+      $("#txtEmail").keyup(function () {
+        let emailid = $("#txtEmail").val();
+        let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;  //regex 
+
+        if (emailid == "") {
+          $("#errMsgE").html("Empty").addClass("not-ok").removeClass("ok");
+          $("#errPicE").addClass("not-okpic").removeClass("ok-pic");
+        }
+        else if (regex.test(emailid) == false) {
+          $("#errMsgE").html("InvalidEmail").addClass("not-ok").removeClass("ok");
+          $("#errPicE").addClass("not-okpic").removeClass("ok-pic");
+        }
+        else {
+          $("#errMsgE").html("validEmail").addClass("ok").removeClass("not-ok");
+          $("#errPicE").addClass("ok-pic").removeClass("not-okpic");
+        }
+
+      })
+      $("#txtPwd").keyup(function () {
+
+
+      $("#eye").click(function () {
+        let txt = $("#txtPwd").prop("type");
+        if (txt == "password") {
+          $("#txtPwd").prop("type", "text");//type changed
+          $("#eye").removeClass("fa-eye").addClass("fa-eye-slash");
+        }
+        else {
+          $("#txtPwd").prop("type", "password");
+          $("#eye").removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+
+
+      })
+    })
+       })
+
+                 //Validations for LOgin
+       $(document).ready(function ()
+        
+     {
+  
+      
+      $("#eye2").click(function () {
+        let txt = $("#txtPwd2").prop("type");
+        if (txt == "password") {
+          $("#txtPwd2").prop("type", "text");//type changed
+          $("#eye2").removeClass("fa-eye").addClass("fa-eye-slash");
+        }
+        else {
+          $("#txtPwd2").prop("type", "password");
+          $("#eye2").removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+   
+
+      
+    })
+      })
+        
+
+   
+  </script>
+
+
+
+  <script>
+    $(document).ready(function () {
+      $("#btnSubmit").click(function () {
+
+
+        let obj = {
+          type: "get",
+          url: "/signup-one",
+          data: {
+            txtEmail: $("#txtEmail").val(),
+            txtPwd: $("#txtPwd").val(),
+            userType: $("#userType").val()
+          }
+        }
+
+        $.ajax(obj).then(
+          function (response) {
+            alert(response);
+          }
+        ).fail(function (err) {
+          alert("Error: " + err.message);
+        })
+      })
+  
+
+    //LOGIN AJAX
+
+  
+      $("#btnSubmit2").click(function () {
+       
+      alert();
+        let obj = {
+          type: "get",
+          url: "/do-login",
+          data: {
+            txtEmail2: $("#txtEmail2").val(),
+            txtPwd2: $("#txtPwd2").val(),
+
+          }
+        }
+                                      //validation for log in ,log out
+        $.ajax(obj).then(
+          function (response) {
+            alert(response)
+             if (response == "Blocked") {
+               alert("Sorry!!Ur Id is Blocked");
+             }
+
+             else if (response == "Invalid") {
+               alert("Invalid Email or Password");
+             }
+             else
+              if (response == "player") {
+                localStorage.setItem("activeUser", $("#txtEmail2").val())
+                location.href = "player-details.html"
+              }
+
+              else if (response == "organizer") {
+                localStorage.setItem("activeUser", $("#txtEmail2").val())
+                location.href = "org-details.html";
+              }
+              else if (response == "admin") {
+                localStorage.setItem("activeUser", $("#txtEmail2").val())
+                location.href = "user-admin-details.html";
+              }
+          }).fail(function (err) {
+            alert("Error: " + err.message);
+          })
+      })
+    })
+
+
+  </script>
+</head>
+
+<body>
+  <!-- <div  id="outer-div"> -->
+
+  <center>
+    <!--  for link data bs toggle will use-->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal" id="btnSignup"> Signup</button>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal"  >Login</button>
+
+<!-- 
+    <a href="/org-details" class="btn btn-primary"> Org-dash
+    </a> -->
+
+               <!-- commented botton -->
+ <!-- <a href="/org-details" class="btn btn-primary">
+      Orgdash
+    </a>
+    <a href="/player-details" class="btn btn-primary">
+      player-dash
+    </a>
+    <a href="/user-admin-details" class="btn btn-primary">
+      admin-console
+    </a> -->
+
+              <!-- finish -->
+     
+  </center>
+  <!-- 
+     <a href="dash-organizers.html" target="blank">
+          <button type="button"   id="orgDash"  >Org-dash</button>
+          </a>
+           -->
+
+
+          <!-- Signup  Model -->
+
+  <div class="modal" tabindex="-1" id="signupModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">Signup Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="txtEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="txtEmail" name="txtEmail">
+            <div class="d-flex mt-1">
+              <div id="errPicE" class="me-2"></div>
+              <div id="errMsgE"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="txtPwd" class="form-label">Password</label>
+            <div class="d-flex border p-1">
+              <input type="password" class="form-control border-0" id="txtPwd">
+              <i class="fa-solid fa-eye" id="eye"   ></i>
+            </div>
+            <div class="d-flex mt-1">
+              <div id="errPicE2" class="me-2"></div>
+              <div id="errMsgE2"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="userType" class="form-label">User Type</label>
+            <select class="form-select" id="userType" name="userType">
+              <option selected>SELECT</option>
+              <option value="player">Player</option>
+              <option value="organizer">Organizer</option>
+            </select>
+          </div>
+
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="btnSubmit">Signup</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- LOGIN MODEL -->
+
+  
+  <div class="modal" tabindex="-1" id="LoginModal"   > 
+  <div class="modal-dialog"   >
+    <div class="modal-content"  >
+      <div class="modal-header  bg-danger  text-white"   >
+        <h5 class="modal-title"   > Login Modal </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+    <form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="txtEmail2" name="txtEmail2" aria-describedby="emailHelp">
+      <div class="d-flex mt-1">
+              <div id="errPicE2" class="me-2"></div>
+              <div id="errMsgE2"></div>
+            </div>
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+
+  <div class="mb-3">
+  <label for="txtPwd2" class="form-label">Password</label>
+  <div class="d-flex border p-1">
+    <input type="password" class="form-control border-0" id="txtPwd2" name="txtPwd2">
+    <i class="fa-solid fa-eye" id="eye2"></i>
+  </div>
+  <div class="d-flex mt-1">
+    <div id="errPicPwd2" class="me-2"></div>
+    <div id="errMsgPwd2"></div>
+  </div>
+</div>
+
+
+
+  <input type="button" class="btn btn-primary"  value="Login" id="btnSubmit2" ></button>
+</form>
+
+    </div>
+  </div>
+</div>
+ 
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
