@@ -55,7 +55,7 @@ app.get("/",function(req,resp)
      resp.sendFile(__dirname + "/public/post-tournaments.html");
  });
  app.get("/tournaments-Manage", (req, resp) => {
-     resp.sendFile(__dirname + "/public/tournaments-Manage.html");
+     resp.sendFile(__dirname + "/public/tournaments-manage.html");
  });
 app.get("/profile-player", (req, resp) => {
      resp.sendFile(__dirname + "/public/profile-player.html");
